@@ -133,7 +133,28 @@ def install(args):
             dump_json_schema(new_content)
         os.system(call)
     else:
-        pass
+        call = "../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}".format(
+            chain_name=chain_name,
+            node_address=node_address,
+            secret_key=secret_key,
+            payment_amount=payment_amount,
+            collection_name=default['name'],
+            collection_symbol=default['sym'],
+            total_token_supply=default['supply'],
+            ownership_mode=default['ownership'],
+            nft_kind=default['kind'],
+            nft_identifier=default['identifier'],
+            nft_holder_mode=default['hold'],
+            minting_mode=default['mint'],
+            metadata_mutability=default['mutable'],
+            burn_mode=default['burn'],
+            nft_metadata_kind=default['meta']
+            )
+        with open('../bash-scripts/custom-template.sh', 'r') as template_file:
+            content = template_file.read()
+            new_content = content.replace('[JSON_SCHEMA]', '')
+            dump_json_schema(new_content)
+        os.system(call)
 
 def get_deploy(args):
     args = parser.parse_args()
