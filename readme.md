@@ -1,7 +1,7 @@
 # Usage Examples
 This python-tool makes installing ( and using ) the Casper NFT Standard Cep-78 easier for developers. You can quickly install an instantiation of the contract by just calling a python script with many default modalities.
 
-1. with [NCTL](https://github.com/casper-network/casper-node/blob/dev/utils/nctl/README.md)
+## 1. with [NCTL](https://github.com/casper-network/casper-node/blob/dev/utils/nctl/README.md)
 
 To install the example, custom cep-78 contract, run this command:
 ```bash
@@ -63,7 +63,7 @@ parser.add_argument('-deploy', '--deploy-hash')
 Note that not all of them are supported. Others will be added over time as this is a very recent project.
 
 
-2. with Testnet
+## 2. with Testnet
 
 If you want to install the contract on Testnet, you need to supply a different chain-name and node-address. Retrieve an active Testnet node from [this list](https://testnet.cspr.live/tools/peers)
 
