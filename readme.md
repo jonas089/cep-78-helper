@@ -139,9 +139,9 @@ note: this should be changed to __identifier_mode__ for naming to be consistent,
 | Burnable    | 0          |
 | NonBurnable | 1          |
 
-# What next?
+## What next?
 You can learn how to query the contract and mint NFTs from [this medium article](https://medium.com/casperblockchain/casper-cep-78-enhanced-nft-standard-d954218626be). Querying and Calling capabilities of this repository that might help you in the process will be added below, once developed:
 
-# Querying capabilities
+## Querying capabilities
 
-# Calling capabilities
+## Calling capabilities
