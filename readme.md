@@ -79,51 +79,51 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 
 1. --ownership-mode
 
-| Ownership    | u8  |
-|--------------|-----|
-| Minter       | 0   |
-| Assigned     | 1   |
-| Transferable | 2   |
+| Ownership    | u8        |
+|--------------|-----------|
+| Minter       | 0         |
+| Assigned     | 1         |
+| Transferable | 2         |
 
 2. --nft-kind
 
-| NFTKind  | u8  |
-|----------|-----|
-| Physical | 0   |
-| Digital  | 1   |
-| Virtual  | 2   |
+| NFTKind  | u8            |
+|----------|---------------|
+| Physical | 0             |
+| Digital  | 1             |
+| Virtual  | 2             |
 
 3. --nft-holder-mode
 
-| NFTHolderMode | u8  |
-|---------------|-----|
-| Accounts      | 0   |
-| Contracts     | 1   |
-| Mixed         | 2   |
+| NFTHolderMode | u8       |
+|---------------|----------|
+| Accounts      | 0        |
+| Contracts     | 1        |
+| Mixed         | 2        |
 
 4. --minting-mode
 
-| MintingMode | u8  |
-|-------------|-----|
-| Installer   | 0   |
-| Public      | 1   |
+| MintingMode | u8         |
+|-------------|------------|
+| Installer   | 0          |
+| Public      | 1          |
 
 5. --metadata-kind
 
-| NFTMetadataKind | u8  |
-|-----------------|-----|
-| CEP78           | 0   |
-| NFT721          | 1   |
-| Raw             | 2   |
-| CustomValidated | 3   |
+| NFTMetadataKind | u8     |
+|-----------------|--------|
+| CEP78           | 0      |
+| NFT721          | 1      |
+| Raw             | 2      |
+| CustomValidated | 3      |
 
 6. --nft-identifier
 note: this should be changed to __identifier_mode__ for naming to be consistent,
 
-| NFTIdentifierMode | u8  |
-|-------------------|-----|
-| Ordinal           | 0   |
-| Hash              | 1   |
+| NFTIdentifierMode | u8   |
+|-------------------|------|
+| Ordinal           | 0    |
+| Hash              | 1    |
 
 7. --metadata-mutability
 
@@ -134,10 +134,10 @@ note: this should be changed to __identifier_mode__ for naming to be consistent,
 
 8. --burn-mode
 
-| BurnMode    | u8  |
-|-------------|-----|
-| Burnable    | 0   |
-| NonBurnable | 1   |
+| BurnMode    | u8         |
+|-------------|------------|
+| Burnable    | 0          |
+| NonBurnable | 1          |
 
 # What next?
 You can learn how to query the contract and mint NFTs from [this medium article](https://medium.com/casperblockchain/casper-cep-78-enhanced-nft-standard-d954218626be). Querying and Calling capabilities of this repository that might help you in the process will be added below, once developed:
@@ -145,5 +145,3 @@ You can learn how to query the contract and mint NFTs from [this medium article]
 # Querying capabilities
 
 # Calling capabilities
-
-
