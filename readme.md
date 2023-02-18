@@ -143,5 +143,8 @@ note: this should be changed to __identifier_mode__ for naming to be consistent,
 You can learn how to query the contract and mint NFTs from [this medium article](https://medium.com/casperblockchain/casper-cep-78-enhanced-nft-standard-d954218626be). Querying and Calling capabilities of this repository that might help you in the process will be added below, once developed:
 
 ## Querying capabilities
-
+1. Get deploy / check whether installation of contract was successful
+```bash
+$ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node_address SOME_IP_ADDRESS:PORT
+```
 ## Calling capabilities
