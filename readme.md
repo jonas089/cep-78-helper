@@ -65,7 +65,7 @@ Note that not all of them are supported. Others will be added over time as this 
 
 2. with Testnet
 
-If you want to install the contract on Testnet, you need to supply a different chain-name and node-address. Retrieve an active Testnet node from (this list)[https://testnet.cspr.live/tools/peers]
+If you want to install the contract on Testnet, you need to supply a different chain-name and node-address. Retrieve an active Testnet node from [this list](https://testnet.cspr.live/tools/peers)
 
 An example could look like this:
 
