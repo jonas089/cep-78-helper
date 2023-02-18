@@ -1,4 +1,4 @@
-import os, argparse
+import os, argparse, json, subprocess
 parser = argparse.ArgumentParser(
             prog = 'ProgramName',
             description = 'What the program does',
@@ -29,6 +29,9 @@ parser.add_argument('-json', '--json-schema')
 
 # get-deploy arguments
 parser.add_argument('-deploy', '--deploy-hash')
+
+# query arguments
+parser.add_argument('-acc', '--account-key')
 
 def dump_json_schema(new_content):
     if os.path.exists('../bash-scripts/temp.sh'):
@@ -158,9 +161,20 @@ def install(args):
 
 def get_deploy(args):
     args = parser.parse_args()
-    return os.system("../bash-scripts/get-deploy.sh {deploy} {host}".format(deploy=args.deploy_hash, host=args.node_address))
+    os.system("../bash-scripts/get-deploy.sh {deploy} {host}".format(deploy=args.deploy_hash, host=args.node_address))
 
-
+def query_account(args):
+    if not args.node_address or not args.account_key:
+        print("Missing Mandatory arguments!")
+        return False
+    # Get state root hash
+    res = subprocess.check_output(["../bash-scripts/get-state-root-hash.sh"])
+    res = str(res)[2:-3]
+    srh = json.loads(res)['result']['state_root_hash']
+    # Use state root hash to query account
+    acc = subprocess.check_output(["../bash-scripts/query-account.sh", args.node_address, srh, args.account_key])
+    print(acc)
+# Parse and call functions
 args = parser.parse_args()
 
 if args.function == 'install':
@@ -169,4 +183,5 @@ if args.function == 'install':
 if args.function == 'install-status':
     get_deploy(args)
 
-print(args.function)
+if args.function == 'query-account':
+    query_account(args)
