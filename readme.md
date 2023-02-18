@@ -76,3 +76,67 @@ $ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY --node-add
 
 # Modalities
 Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhanced-nft/blob/dev/README.md):
+
+1. --ownership-mode
+
+| Ownership    | u8  |
+|--------------|-----|
+| Minter       | 0   |
+| Assigned     | 1   |
+| Transferable | 2   |
+
+2. --nft-kind
+
+| NFTKind  | u8  |
+|----------|-----|
+| Physical | 0   |
+| Digital  | 1   |
+| Virtual  | 2   |
+
+3. --nft-holder-mode
+
+| NFTHolderMode | u8  |
+|---------------|-----|
+| Accounts      | 0   |
+| Contracts     | 1   |
+| Mixed         | 2   |
+
+4. --minting-mode
+
+| MintingMode | u8  |
+|-------------|-----|
+| Installer   | 0   |
+| Public      | 1   |
+
+5. --metadata-kind
+
+| NFTMetadataKind | u8  |
+|-----------------|-----|
+| CEP78           | 0   |
+| NFT721          | 1   |
+| Raw             | 2   |
+| CustomValidated | 3   |
+
+6. --nft-identifier
+note: this should be changed to __identifier_mode__ for naming to be consistent,
+
+| NFTIdentifierMode | u8  |
+|-------------------|-----|
+| Ordinal           | 0   |
+| Hash              | 1   |
+
+7. --metadata-mutability
+
+| MetadataMutability | u8  |
+|--------------------|-----|
+| Immutable          | 0   |
+| Mutable            | 1   |
+
+8. --burn-mode
+
+| BurnMode    | u8  |
+|-------------|-----|
+| Burnable    | 0   |
+| NonBurnable | 1   |
+
+
