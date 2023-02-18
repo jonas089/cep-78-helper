@@ -30,7 +30,7 @@ default = {
 ```
 Read more on modalities [here](https://github.com/casper-ecosystem/cep-78-enhanced-nft/blob/dev/README.md), or see the smaller overview below if you kind of know what modalities do in this context.
 
-As you can see, the **json_schema** has to be an escaped string. Because of this we need to generate a temp bash file, that's then executed to install an instantiation of the custom-template.sh.
+As you can see, the **json_schema** has to be an escaped string. Because of this we need to generate a temp bash file, that's then executed to install an instantiation of the custom-template.sh. Don't worry, you can easily escape your json schema using [this](https://jsontostring.com/) tool.
 
 When using standard metadata (e.g. meta:0 or meta:1) (cep78 and NFT721 respectively), the json_schema defaults to an empty string ''.
 
