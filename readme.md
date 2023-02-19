@@ -152,7 +152,7 @@ You can learn how to query the contract and mint NFTs from [this medium article]
 
 1. Get deploy / check whether installation of contract was successful
 ```bash
-$ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
+$ python3 cep78.py --function deploy-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
 ```
 
 2. Query account / get contract hashes from named_keys
@@ -161,9 +161,27 @@ $ python3 cep78.py --function query-account-named-keys --account-key SOME_PUBLIC
 ```
 Returns and prints a list of account's named_keys. Use the account hashs of the installed contracts in the list to call functions on the contracts such as **mint**, **burn**, ...
 
-3. Get contract by name
+3. Query _contract-hash_ by name
 ```bash
-$ python3 cep78.py --function get-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
+$ python3 cep78.py --function query-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Contract name can be the name of any named key. The default Contract's hash is stored under this name: _cep78_contract_hash_casper_collection_
 ## Calling capabilities
+
+1. Mint an NFT by calling a contract via _contract-hash_
+```bash
+$ python3 cep78.py --function mint --chain-name CHAIN_NAME \
+  --secret-key PATH_TO_SECRET_KEY \
+  --payment-amount PAYMENT_AMOUNT --session-hash CONTRACT_HASH \
+  --token-owner ACCOUNT_HASH --token-metadata META_DATA \
+  --node-address SOME_IP_ADDRESS:PORT
+```
+
+Example _account-hash_:
+```
+account-hash-5a54f173e71d3c219940dcb9dfec222b024cd81aa7e0672de59ba5fab296448b
+```
+Example _token-metadata_:
+```
+'{\"nft_name\":\"DUMMY_NAME\",\"nft_description\":\"DUMMY_DESCRIPTION\",\"nft_url\":\"http://DUMMY_URL\"}'
+```

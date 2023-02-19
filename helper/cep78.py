@@ -1,5 +1,18 @@
 import os, argparse, json, subprocess
 from termcolor import colored
+from utils import dump_json_temp
+print(
+'''
+ ██████ ███████ ██████        ███████  █████
+██      ██      ██   ██            ██ ██   ██
+██      █████   ██████  █████     ██   █████
+██      ██      ██               ██   ██   ██
+ ██████ ███████ ██               ██    █████
+
+
+'''
+)
+
 parser = argparse.ArgumentParser(
             prog = 'ProgramName',
             description = 'What the program does',
@@ -25,7 +38,7 @@ parser.add_argument('-mint', '--minting-mode')
 parser.add_argument('-mutable', '--metadata-mutability')
 parser.add_argument('-burn', '--burn-mode')
 ## Advanced
-parser.add_argument('-metadata', '--metadata-kind')
+parser.add_argument('-meta', '--metadata-kind')
 parser.add_argument('-json', '--json-schema')
 
 # get-deploy arguments
@@ -35,16 +48,10 @@ parser.add_argument('-deploy', '--deploy-hash')
 parser.add_argument('-acc', '--account-key')
 parser.add_argument('-cname', '--contract-name')
 
-def dump_json_schema(new_content):
-    if os.path.exists('../bash-scripts/temp.sh'):
-        os.remove('../bash-scripts/temp.sh')
-    with open('../bash-scripts/temp.sh', 'x'):
-        pass
-    os.system('chmod +x ../bash-scripts/temp.sh')
-
-    with open('../bash-scripts/temp.sh', 'w') as template_file:
-        template_file.write(new_content)
-    template_file.close()
+# call arguments
+parser.add_argument('-owner', '--token-owner')
+parser.add_argument('-metadata', '--token-metadata')
+parser.add_argument('-session', '--session-hash')
 
 def install(args):
     # Mandatory Arguments
@@ -63,8 +70,8 @@ def install(args):
         'mint': str(1),
         'mutable': str(0),
         'burn': str(1),
-        'meta':str(3), # Custom, validated
-        'json': r'''{\"properties\":{\"nft_name\":{\"name\":\"nft_name\",\"description\":\"name_of_nft\",\"required\":true},\"nft_description\":{\"name\":\"nft_description\",\"description\":\"description_of_nft\",\"required\":true},\"nft_name\":{\"name\":\"nft_url\",\"description\":\"url_of_nft\",\"required\":true}}}'''
+        'meta':str(3), # Custom, validated = 3, CEP-78 = 0, NFT-721 = 1, RAW = 2
+        'json': r'''{\"properties\":{\"nft_name\":{\"name\":\"nft_name\",\"description\":\"thenameofthenft\",\"required\":true},\"nft_description\":{\"name\":\"nft_description\",\"description\":\"thedescriptionofthenft\",\"required\":true},\"nft_url\":{\"name\":\"nft_url\",\"description\":\"theurlofthenft\",\"required\":true}}}'''
     }
 
     # Override default if arguments specified
@@ -135,7 +142,7 @@ def install(args):
         with open('../bash-scripts/custom-template.sh', 'r') as template_file:
             content = template_file.read()
             new_content = content.replace('[JSON_SCHEMA]', default['json'])
-            dump_json_schema(new_content)
+            dump_json_temp(new_content)
         os.system(call)
     else:
         call = '../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}'.format(
@@ -158,7 +165,7 @@ def install(args):
         with open('../bash-scripts/custom-template.sh', 'r') as template_file:
             content = template_file.read()
             new_content = content.replace('[JSON_SCHEMA]', '')
-            dump_json_schema(new_content)
+            dump_json_temp(new_content)
         os.system(call)
 
 def get_deploy(args):
@@ -170,6 +177,7 @@ def get_deploy(args):
     res = res.decode('utf-8')
     print('Installation Status: ', res)
     return json.loads(res)
+
 def query_account_named_keys(args):
     if not args.node_address or not args.account_key:
         print('Missing Mandatory arguments!')
@@ -186,7 +194,20 @@ def query_account_named_keys(args):
     print(colored('Account named keys: ', 'yellow'), named_keys)
     return named_keys
 
-def get_contract_by_name(args):
+def mint(args):
+    if not args.node_address or not args.chain_name or not args.secret_key or not args.payment_amount or not args.session_hash or not args.token_owner or not args.token_metadata:
+        print('Missing Mandatory arguments!')
+        return False
+    call = ['../bash-scripts/temp.sh', args.node_address, args.chain_name, args.secret_key, args.payment_amount, args.session_hash, args.token_owner]
+    # Replace [JSON_METADATA] and create temp file
+    with open('../bash-scripts/mint.sh', 'r') as template_file:
+        content = template_file.read()
+        new_content = content.replace('[JSON_METADATA]', args.token_metadata)
+        dump_json_temp(new_content)
+    res = subprocess.check_output(call).decode('utf-8')
+    print(res)
+
+def query_contract_by_name(args):
     # default name: cep78_contract_hash_casper_collection
     if not args.contract_name:
         print('Missing Mandatory arguments!')
@@ -209,11 +230,14 @@ args = parser.parse_args()
 if args.function == 'install':
     install(args)
 
-if args.function == 'install-status':
+if args.function == 'deploy-status':
     get_deploy(args)
 
 if args.function == 'query-account-named-keys':
     query_account_named_keys(args)
 
-if args.function == 'get-contract-by-name':
-    get_contract_by_name(args)
+if args.function == 'query-contract-by-name':
+    query_contract_by_name(args)
+
+if args.function == 'mint':
+    mint(args)
