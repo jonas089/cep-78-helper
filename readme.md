@@ -83,7 +83,7 @@ $ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY --node-add
 # Modalities
 Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhanced-nft/blob/dev/README.md):
 
-1. --ownership-mode
+1. _--ownership-mode_
 
 | Ownership    | u8        |
 |--------------|-----------|
@@ -91,7 +91,7 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Assigned     | 1         |
 | Transferable | 2         |
 
-2. --nft-kind
+2. _--nft-kind_
 
 | NFTKind  | u8            |
 |----------|---------------|
@@ -99,7 +99,7 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Digital  | 1             |
 | Virtual  | 2             |
 
-3. --nft-holder-mode
+3. _--nft-holder-mode_
 
 | NFTHolderMode | u8       |
 |---------------|----------|
@@ -166,9 +166,14 @@ Returns and prints a list of account's named_keys. Use the account hashs of the 
 $ python3 cep78.py --function query-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Contract name can be the name of any named key. The default Contract's hash is stored under this name: _cep78_contract_hash_casper_collection_
-## Calling capabilities
 
+## Calling capabilities
 1. Mint an NFT by calling a contract via _contract-hash_
+
+In this scenario, we mint a custom NFT using the metadata schema from the example above. 
+The _--nft-kind_ is set to 3 => custom validated Metadata.
+
+
 ```bash
 $ python3 cep78.py --function mint --chain-name CHAIN_NAME \
   --secret-key PATH_TO_SECRET_KEY \
