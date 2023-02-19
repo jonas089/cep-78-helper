@@ -143,15 +143,18 @@ note: this should be changed to __identifier_mode__ for naming to be consistent,
 You can learn how to query the contract and mint NFTs from [this medium article](https://medium.com/casperblockchain/casper-cep-78-enhanced-nft-standard-d954218626be). Querying and Calling capabilities of this repository that might help you in the process will be added below, once developed:
 
 ## Querying capabilities
+
 1. Get deploy / check whether installation of contract was successful
 ```bash
 $ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
 ```
+
 2. Query account / get contract hashes from named_keys
 ```bash
 $ python3 cep78.py --function query-account-named-keys --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Returns and prints a list of account's named_keys. Use the account hashs of the installed contracts in the list to call functions on the contracts such as **mint**, **burn**, ...
+
 3. Get contract by name
 ```bash
 $ python3 cep78.py --function get-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
