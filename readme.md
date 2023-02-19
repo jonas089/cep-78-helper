@@ -91,7 +91,7 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Assigned     | 1         |
 | Transferable | 2         |
 
-2. _--nft-kind_
+2. __--nft-kind__
 
 | NFTKind  | u8            |
 |----------|---------------|
@@ -99,7 +99,7 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Digital  | 1             |
 | Virtual  | 2             |
 
-3. _--nft-holder-mode_
+3. __--nft-holder-mode__
 
 | NFTHolderMode | u8       |
 |---------------|----------|
@@ -107,14 +107,14 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Contracts     | 1        |
 | Mixed         | 2        |
 
-4. --minting-mode
+4. __--minting-mode__
 
 | MintingMode | u8         |
 |-------------|------------|
 | Installer   | 0          |
 | Public      | 1          |
 
-5. --metadata-kind
+5. __--metadata-kind__
 
 | NFTMetadataKind | u8     |
 |-----------------|--------|
@@ -123,7 +123,7 @@ Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhance
 | Raw             | 2      |
 | CustomValidated | 3      |
 
-6. --nft-identifier
+6. __--nft-identifier__
 note: this should be changed to __identifier_mode__ for naming to be consistent,
 
 | NFTIdentifierMode | u8   |
@@ -131,14 +131,14 @@ note: this should be changed to __identifier_mode__ for naming to be consistent,
 | Ordinal           | 0    |
 | Hash              | 1    |
 
-7. --metadata-mutability
+7. __--metadata-mutability__
 
 | MetadataMutability | u8  |
 |--------------------|-----|
 | Immutable          | 0   |
 | Mutable            | 1   |
 
-8. --burn-mode
+8. __--burn-mode__
 
 | BurnMode    | u8         |
 |-------------|------------|
@@ -170,9 +170,13 @@ Contract name can be the name of any named key. The default Contract's hash is s
 ## Calling capabilities
 1. Mint an NFT by calling a contract via _contract-hash_
 
-In this scenario, we mint a custom NFT using the metadata schema from the example above. 
-The _--nft-kind_ is set to 3 => custom validated Metadata.
+In this scenario, we mint a custom NFT using the default metadata schema from the example above:
+```bash
+r'''{\"properties\":{\"nft_name\":{\"name\":\"nft_name\",\"description\":\"name_of_nft\",\"required\":true},\"nft_description\":{\"name\":\"nft_description\",\"description\":\"description_of_nft\",\"required\":true},\"nft_name\":{\"name\":\"nft_url\",\"description\":\"url_of_nft\",\"required\":true}}}'''
+```
+With this schema, every NFT has a name, description and url. If you want to use a standard schema, like CEP-78 or NFT-721, consider changing the __--nft-kind__ to 0 or 1 respectively. If you do so, you don't need to supply a json-schema when installing the contract and the value will default to ''.
 
+In our case the __--nft-kind__ is set to 3 => custom validated Metadata.
 
 ```bash
 $ python3 cep78.py --function mint --chain-name CHAIN_NAME \
