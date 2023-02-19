@@ -1,6 +1,6 @@
 #!/bin/bash
 function srh(){
-    casper-client get-state-root-hash --node-address http://127.0.0.1:11101
+    casper-client get-state-root-hash --node-address $1
 }
-result=$(srh)
+result=$(srh $1)
 echo $result

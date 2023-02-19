@@ -32,6 +32,7 @@ parser.add_argument('-deploy', '--deploy-hash')
 
 # query arguments
 parser.add_argument('-acc', '--account-key')
+parser.add_argument('-cname', '--contract-name')
 
 def dump_json_schema(new_content):
     if os.path.exists('../bash-scripts/temp.sh'):
@@ -160,20 +161,45 @@ def install(args):
         os.system(call)
 
 def get_deploy(args):
+    if not args.deploy_hash or not args.node_address:
+        print("Missing Mandatory arguments!")
+        return False
     args = parser.parse_args()
     os.system("../bash-scripts/get-deploy.sh {deploy} {host}".format(deploy=args.deploy_hash, host=args.node_address))
 
-def query_account(args):
+def query_account_named_keys(args):
     if not args.node_address or not args.account_key:
         print("Missing Mandatory arguments!")
         return False
     # Get state root hash
-    res = subprocess.check_output(["../bash-scripts/get-state-root-hash.sh"])
+    res = subprocess.check_output(["../bash-scripts/get-state-root-hash.sh", args.node_address])
     res = str(res)[2:-3]
     srh = json.loads(res)['result']['state_root_hash']
     # Use state root hash to query account
-    acc = subprocess.check_output(["../bash-scripts/query-account.sh", args.node_address, srh, args.account_key])
-    print(acc)
+    acc = subprocess.check_output(["../bash-scripts/query-account-named-keys.sh", args.node_address, srh, args.account_key])
+    acc = str(acc)[2:-3]
+    # Get account's named keys
+    named_keys = json.loads(acc)['result']['stored_value']['Account']['named_keys']
+    print("Account's named keys: ", named_keys)
+    return named_keys
+
+def get_contract_by_name(args):
+    # default name: cep78_contract_hash_casper_collection
+    if not args.contract_name:
+        print("Missing Mandatory arguments!")
+        return False
+    named_keys = query_account_named_keys(args)
+    if named_keys == False:
+        return False
+    for contract in named_keys:
+        if contract['name'] == args.contract_name:
+            contract_hash = contract['key']
+            print("Contract Hash found: ", contract_hash)
+            return contract_hash
+    print('Contract does not exist!')
+    return False
+
+
 # Parse and call functions
 args = parser.parse_args()
 
@@ -183,5 +209,8 @@ if args.function == 'install':
 if args.function == 'install-status':
     get_deploy(args)
 
-if args.function == 'query-account':
-    query_account(args)
+if args.function == 'query-account-named-keys':
+    query_account_named_keys(args)
+
+if args.function == 'get-contract-by-name':
+    get_contract_by_name(args)

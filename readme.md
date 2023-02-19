@@ -145,6 +145,13 @@ You can learn how to query the contract and mint NFTs from [this medium article]
 ## Querying capabilities
 1. Get deploy / check whether installation of contract was successful
 ```bash
-$ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node_address SOME_IP_ADDRESS:PORT
+$ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
 ```
+2. Query account / get contract hashes from named_keys
+```bash
+$ python3 cep78.py --function query-account-named-keys --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
+```
+Returns and prints a list of account's named_keys. Use the account hashs of the installed contracts in the list to call functions on the contracts such as **mint**, **burn**, ...
+
+
 ## Calling capabilities
