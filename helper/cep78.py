@@ -1,4 +1,5 @@
 import os, argparse, json, subprocess
+from termcolor import colored
 parser = argparse.ArgumentParser(
             prog = 'ProgramName',
             description = 'What the program does',
@@ -113,7 +114,7 @@ def install(args):
 
     # Depending on metadata kind, deploy the contract with or without json schema.
     if default['meta'] == str(2) or default['meta'] == str(3):
-        call = "../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}".format(
+        call = '../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}'.format(
             chain_name=chain_name,
             node_address=node_address,
             secret_key=secret_key,
@@ -137,7 +138,7 @@ def install(args):
             dump_json_schema(new_content)
         os.system(call)
     else:
-        call = "../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}".format(
+        call = '../bash-scripts/temp.sh {chain_name} {node_address} {secret_key} {payment_amount} {collection_name} {collection_symbol} {total_token_supply} {ownership_mode} {nft_kind} {nft_identifier} {nft_holder_mode} {minting_mode} {metadata_mutability} {burn_mode} {nft_metadata_kind}'.format(
             chain_name=chain_name,
             node_address=node_address,
             secret_key=secret_key,
@@ -162,31 +163,33 @@ def install(args):
 
 def get_deploy(args):
     if not args.deploy_hash or not args.node_address:
-        print("Missing Mandatory arguments!")
+        print('Missing Mandatory arguments!')
         return False
     args = parser.parse_args()
-    os.system("../bash-scripts/get-deploy.sh {deploy} {host}".format(deploy=args.deploy_hash, host=args.node_address))
-
+    res = subprocess.check_output(['../bash-scripts/get-deploy.sh', args.deploy_hash, args.node_address])
+    res = res.decode('utf-8')
+    print('Installation Status: ', res)
+    return json.loads(res)
 def query_account_named_keys(args):
     if not args.node_address or not args.account_key:
-        print("Missing Mandatory arguments!")
+        print('Missing Mandatory arguments!')
         return False
     # Get state root hash
-    res = subprocess.check_output(["../bash-scripts/get-state-root-hash.sh", args.node_address])
-    res = str(res)[2:-3]
+    res = subprocess.check_output(['../bash-scripts/get-state-root-hash.sh', args.node_address])
+    res = res.decode('utf-8')
     srh = json.loads(res)['result']['state_root_hash']
     # Use state root hash to query account
-    acc = subprocess.check_output(["../bash-scripts/query-account-named-keys.sh", args.node_address, srh, args.account_key])
-    acc = str(acc)[2:-3]
+    acc = subprocess.check_output(['../bash-scripts/query-account-named-keys.sh', args.node_address, srh, args.account_key])
+    acc = acc.decode('utf-8')
     # Get account's named keys
     named_keys = json.loads(acc)['result']['stored_value']['Account']['named_keys']
-    print("Account's named keys: ", named_keys)
+    print(colored('Account named keys: ', 'yellow'), named_keys)
     return named_keys
 
 def get_contract_by_name(args):
     # default name: cep78_contract_hash_casper_collection
     if not args.contract_name:
-        print("Missing Mandatory arguments!")
+        print('Missing Mandatory arguments!')
         return False
     named_keys = query_account_named_keys(args)
     if named_keys == False:
@@ -194,7 +197,7 @@ def get_contract_by_name(args):
     for contract in named_keys:
         if contract['name'] == args.contract_name:
             contract_hash = contract['key']
-            print("Contract Hash found: ", contract_hash)
+            print(colored('Contract Hash found: ', 'green') + contract_hash)
             return contract_hash
     print('Contract does not exist!')
     return False

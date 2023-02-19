@@ -152,6 +152,9 @@ $ python3 cep78.py --function install-status --deploy DEPLOY_HASH --node-address
 $ python3 cep78.py --function query-account-named-keys --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Returns and prints a list of account's named_keys. Use the account hashs of the installed contracts in the list to call functions on the contracts such as **mint**, **burn**, ...
-
-
+3. Get contract by name
+```bash
+$ python3 cep78.py --function get-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
+```
+Contract name can be the name of any named key. The default Contract's hash is stored under this name: _cep78_contract_hash_casper_collection_
 ## Calling capabilities
