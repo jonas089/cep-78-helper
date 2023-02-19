@@ -83,7 +83,7 @@ $ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY --node-add
 # Modalities
 Summarized overview of [this](https://github.com/casper-ecosystem/cep-78-enhanced-nft/blob/dev/README.md):
 
-1. _--ownership-mode_
+1. __--ownership-mode__
 
 | Ownership    | u8        |
 |--------------|-----------|
