@@ -82,6 +82,7 @@ $ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY --node-add
 
 # Modalities
 [Overview](https://github.com/jonas089/cep-78-helper/blob/master/modalities.md) for experienced users
+
 [Details](https://github.com/casper-ecosystem/cep-78-enhanced-nft/blob/dev/README.md) for beginners
 
 ## What next?
