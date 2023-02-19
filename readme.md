@@ -1,6 +1,9 @@
-# Usage Examples
-This python-tool makes installing ( and using ) the Casper NFT Standard Cep-78 easier for developers. You can quickly install an instantiation of the contract by just calling a python script with many default modalities.
+# Intro
+Install an NFT contract with a single command!
+<img width="570" alt="Screenshot 2023-02-19 at 01 36 56" src="https://user-images.githubusercontent.com/49498646/219905720-f789c010-a3ef-4fd7-9b4b-86660d319eff.png">
+This python-tool makes installing ( and using ) the Casper NFT Standard Cep-78 easier for developers. You can quickly install an instantiation of the contract by just calling a python script with many default modalities. This repository includes a bunch of bash scripts and a python argparser to call them. When using casper-client directly, there are many mandatory arguments that one has to type out for every instance of the Cep-78 standard. This tool works with a default configuration where all changes are optional and can be supplied to the python argparser as described below:
 
+# Usage Examples
 ## 1. with [NCTL](https://github.com/casper-network/casper-node/blob/dev/utils/nctl/README.md)
 
 To install the example, custom cep-78 contract, run this command:
