@@ -1,5 +1,5 @@
 # Workflow
-This is a temporary solution that will be deprecated once casper contracts 
+This is a **temporary solution** that will be deprecated once casper contracts 
 produce json artifacts. 
 
 Last updated: 20.02.2023
