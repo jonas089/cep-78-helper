@@ -17,7 +17,7 @@ This python-tool makes installing ( and using ) the Casper NFT Standard Cep-78 e
 
 To install the example, custom cep-78 contract, run this command:
 ```bash
-$ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY
+$ python3 main.py --function install --secret-key PATH_TO_SECRET_KEY
 ```
 This will install a cep-78 contract with these modalities:
 ```bash
@@ -46,7 +46,7 @@ As you can see, the **json_schema** has to be an escaped string. Because of this
 
 When using standard metadata (e.g. meta:0 or meta:1) (cep78 and NFT721 respectively), the json_schema defaults to an empty string ''.
 
-Feel free to experiment with modalities as per the documentation. They are useful for configuring the conditions of the NFT contract such as blacklists, mutability, burning and many more. I categorized the modalites by how advanced they are in cep78.py:
+Feel free to experiment with modalities as per the documentation. They are useful for configuring the conditions of the NFT contract such as blacklists, mutability, burning and many more. I categorized the modalites by how advanced they are in main.py:
 
 ```python
 ## Basic
