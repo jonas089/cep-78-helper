@@ -1,6 +1,6 @@
 # Workflow
-This is a **temporary solution** that will be deprecated once casper contracts 
-produce json artifacts. 
+This is a **temporary solution** that will be deprecated once casper contracts
+produce json artifacts.
 
 Last updated: 20.02.2023
 
@@ -82,7 +82,7 @@ If you want to install the contract on Testnet, you need to supply a different c
 An example could look like this:
 
 ```bash
-$ python3 cep78.py --function install --secret-key PATH_TO_SECRET_KEY --node-address SOME_IP_FROM_LIST:7777 --chain-name casper-test
+$ python3 main.py --function install --secret-key PATH_TO_SECRET_KEY --node-address SOME_IP_FROM_LIST:7777 --chain-name casper-test
 ```
 
 
@@ -98,18 +98,18 @@ You can learn how to query the contract and mint NFTs from [this medium article]
 
 1. Get deploy / check whether installation of contract was successful
 ```bash
-$ python3 cep78.py --function deploy-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
+$ python3 main.py --function deploy-status --deploy DEPLOY_HASH --node-address SOME_IP_ADDRESS:PORT
 ```
 
 2. Query account / get contract hashes from named_keys
 ```bash
-$ python3 cep78.py --function query-account-named-keys --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
+$ python3 main.py --function query-account-named-keys --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Returns and prints a list of account's named_keys. Use the account hashs of the installed contracts in the list to call functions on the contracts such as **mint**, **burn**, ...
 
 3. Query _contract-hash_ by name
 ```bash
-$ python3 cep78.py --function query-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
+$ python3 main.py --function query-contract-by-name --contract-name SOME_CONTRACT_NAME --account-key SOME_PUBLIC_KEY --node-address SOME_IP_ADDRESS:PORT
 ```
 Contract name can be the name of any named key. The default Contract's hash is stored under this name: _cep78_contract_hash_casper_collection_
 
@@ -125,7 +125,7 @@ With this schema, every NFT has a name, description and url. If you want to use 
 In our case the __--nft-kind__ is set to 3 => custom validated Metadata.
 
 ```bash
-$ python3 cep78.py --function mint --chain-name CHAIN_NAME \
+$ python3 main.py --function mint --chain-name CHAIN_NAME \
   --secret-key PATH_TO_SECRET_KEY \
   --payment-amount PAYMENT_AMOUNT --session-hash CONTRACT_HASH \
   --token-owner ACCOUNT_HASH --token-metadata META_DATA \

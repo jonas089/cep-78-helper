@@ -19,6 +19,7 @@ class CEP78:
         self.metadata_kind = metadata_kind
         self.json_schema = json_schema
 
+    # Install the contract instance
     def install(self, chain_name, node_address, secret_key, payment_amount):
         call = ['../bash-scripts/temp.sh', chain_name, node_address, secret_key, payment_amount, self.collection_name, self.collection_symbol, self.total_token_supply, self.ownership_mode, self.nft_kind, self.nft_identifier, self.nft_holder_mode, self.minting_mode, self.metadata_mutability, self.burn_mode, self.metadata_kind]
         # Workaround because of Json escape string
@@ -30,14 +31,27 @@ class CEP78:
         print("Result: ", res)
         if not 'Failed' in res:
             return json.loads(res)
-            
-    def mint(self, payment_amount, session_hash, token_owner, token_metadata):
-        call = ['../bash-scripts/temp.sh', self.node_address, self.chain_name, self.secret_key, payment_amount, session_hash, token_owner]
-        # Replace [JSON_METADATA] and create temp file
-        with open('../bash-scripts/mint.sh', 'r') as template_file:
-            content = template_file.read()
-            new_content = content.replace('[JSON_METADATA]', token_metadata)
-            dump_json_temp(new_content)
-        res = subprocess.check_output(call).decode('utf-8')
-        print("Result: ", res)
-        return json.loads(res)
+
+    # Infromation about contract object
+    def get_collection_name(self):
+        return self.collection_name
+    def get_total_token_supply(self):
+        return self.total_token_supply
+    def get_ownership_mode(self):
+        return self.ownership_mode
+    def get_nft_kind(self):
+        return self.get_nft_kind
+    def get_nft_identifier(self):
+        return self.get_nft_identifier
+    def get_nft_holder_mode(self):
+        return self.nft_holder_mode
+    def get_minting_mode(self):
+        return self.minting_mode
+    def get_metadata_mutability(self):
+        return self.metadata_mutability
+    def get_burn_mode(self):
+        return self.burn_mode
+    def get_metadata_kind(self):
+        return self.metadata_kind
+    def get_json_schema(self):
+        return self.json_schema

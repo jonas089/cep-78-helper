@@ -1,7 +1,8 @@
-import argparse
+import argparse, subprocess, time
 from cep78 import CEP78
 from query import get_deploy, query_account_named_keys, query_contract_by_name
 from config import contract_config
+from utils import dump_json_temp
 print(
 '''
  ██████ ███████ ██████        ███████  █████
@@ -93,6 +94,8 @@ if args.metadata_kind:
     contract_config['metadata_kind'] = args.metadata_kind
 if args.json_schema:
     contract_config['json_schema'] = args.json_schema
+if args.session_hash:
+    contract_config['session_hash'] = args.session_hash
 
 ## Other arguments
 if args.chain_name:
@@ -110,17 +113,25 @@ def install(config):
     res = contract.install(config['chain_name'], config['node_address'], config['secret_key'], config['payment_amount'])
     return res
 
-def mint(config, payment_amount, session_hash, token_owner, token_metadata):
-    contract = new_instance(config)
-    res = contract.mint(payment_amount, session_hash, token_owner, token_metadata)
+def mint(node_address, chain_name, secret_key, payment_amount, session_hash, token_owner, token_metadata):
+    if not node_address or not chain_name or not secret_key or not payment_amount or not session_hash or not token_owner or not token_metadata:
+        print('Missing Mandatory arguments!')
+        return False
+    call = ['../bash-scripts/temp.sh', node_address, chain_name, secret_key, payment_amount, session_hash, token_owner]
+    # Replace [JSON_METADATA] and create temp file
+    with open('../bash-scripts/mint.sh', 'r') as template_file:
+        content = template_file.read()
+        new_content = content.replace('[JSON_METADATA]', token_metadata)
+        dump_json_temp(new_content)
+    res = subprocess.check_output(call).decode('utf-8')
+    print("Result: ", res)
     return res
-
 # CEP-78
 if args.function == 'install':
     install(contract_config)
 
 if args.function == 'mint':
-    mint(contract_config)
+    mint(args.node_address, args.chain_name, args.secret_key, args.payment_amount, args.session_hash, args.token_owner, args.token_metadata)
 
 # Queries
 if args.function == 'deploy-status':

@@ -11,7 +11,7 @@ contract_config = {
     'burn_mode': str(1),
     'metadata_kind':str(3), # Custom, validated = 3, CEP-78 = 0, NFT-721 = 1, RAW = 2
     'json_schema': r'''{\"properties\":{\"nft_name\":{\"name\":\"nft_name\",\"description\":\"thenameofthenft\",\"required\":true},\"nft_description\":{\"name\":\"nft_description\",\"description\":\"thedescriptionofthenft\",\"required\":true},\"nft_url\":{\"name\":\"nft_url\",\"description\":\"theurlofthenft\",\"required\":true}}}''',
-
+    
     'chain_name': 'casper-net-1', # NCTL contract_config
     'node_address': 'http://127.0.0.1:11101', # NCTL contract_config
     'secret_key': './secret_key.pem',
